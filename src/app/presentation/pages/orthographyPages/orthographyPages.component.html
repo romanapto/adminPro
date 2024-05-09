@@ -1,1 +1,49 @@
-<p>orthographyPages works!</p>,
+<div class="chat-container">
+    <div class="chat-messages">
+        <div class="grid gap-y-2">
+            <!--Chat Messages-->
+            <app-chat-messages text ='escribe texto'></app-chat-messages>
+            <!-- <app-my-message text ='escribe texto'></app-my-message> -->
+            <div *ngFor="let message of messages()">
+                <app-gpt-message-orthography *ngIf="message.isGpt" 
+                        [text]="message.text" 
+                        [errores]="message.info!.errores"
+                        [userScore]="message.info!.userScore"
+                        >
+                </app-gpt-message-orthography>
+                <app-my-message *ngIf="!message.isGpt" 
+                    [text]="message.text">
+                </app-my-message>  
+            </div>
+
+            <app-typing-loader *ngIf="isLoading()" />
+            
+
+            <!-- <app-typing-loader></app-typing-loader> -->
+        </div>
+    </div>
+
+    <app-text-message-box
+        placeholder="escribe aqui lo que desees"
+        (onMessage)="handleMessage($event)"
+        [disableCorrections]="true">
+    </app-text-message-box>
+
+    <!-- <app-text-message-box
+        placeholder="escribe aqui lo que desees"
+        (onMessage)="handleMessage($event)">
+    </app-text-message-box>
+
+    <app-text-message-box-file
+    placeholder="escribe aqui lo que desees"
+    (onMessage)="handleMessageWithFile($event)">
+    </app-text-message-box-file> -->
+
+
+    <!-- <app-text-message-box-select
+    placeholder="Escribe aquí lo que deseas"
+    [options]="[{ id: '1', text: 'Uno' }, { id: '2', text: 'Dos' }]"
+    (onMessage)="handleMessageWithSelect($event)">
+    </app-text-message-box-select> -->
+
+</div>
